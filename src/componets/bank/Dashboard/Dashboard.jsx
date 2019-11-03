@@ -28,9 +28,9 @@ class Dashboard extends React.Component {
 
   handleInput = e => {
     e.preventDefault();
-    // if (Number(e.target.value) >= 0) {
-      this.setState({ valueInput: e.target.value });
-    // } else this.unCorrectInput();
+    // if (e.target.value !== 1) {
+      this.setState({ valueInput: +e.target.value });
+    // }
   };
 
   createNewOperation = typyOperation => {

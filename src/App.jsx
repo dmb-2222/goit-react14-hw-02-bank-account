@@ -1,5 +1,4 @@
 import React from "react";
-import  './common/css/reader.css'
 import Dashboard from './componets/bank/Dashboard/Dashboard'
 
 
