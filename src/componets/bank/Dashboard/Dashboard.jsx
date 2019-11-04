@@ -28,13 +28,11 @@ class Dashboard extends React.Component {
 
   handleInput = e => {
     e.preventDefault();
-    // if (e.target.value !== 1) {
       this.setState({ valueInput: +e.target.value });
-    // }
   };
 
   createNewOperation = typyOperation => {
-    const dateOperation = new Date().toLocaleDateString();
+    const dateOperation = new Date().toLocaleString();
     return {
       id: shortid.generate(),
       type: typyOperation,
@@ -44,7 +42,7 @@ class Dashboard extends React.Component {
   };
 
   handleCkickDeposit = () => {
-    if (this.state.valueInput !== "" && this.state.valueInput > 0) {
+    if (this.state.valueInput > 0) {
       const operation = this.createNewOperation("Deposit");
       this.setState(prevState => {
         return {
