@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../style.module.css";
+import style from "./Controls.module.css";
 import propTypes from "prop-types";
 
 class Controls extends React.Component {

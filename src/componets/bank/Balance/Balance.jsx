@@ -1,6 +1,6 @@
 import React from "react";
 import propTypes from "prop-types";
-import style from "../style.module.css";
+import style from "./Balance.module.css";
 
 const Balance = ({ balance, deposit, withdraw }) => (
     <section className={style.balance}>

@@ -3,7 +3,7 @@ import Controls from "../Controls/Controls";
 import Balance from "../Balance/Balance";
 import TransactionHistory from "../TransactionHistory/TransactionHistory";
 import shortid from "short-id";
-import style from "../style.module.css";
+import style from "./Dashboard.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

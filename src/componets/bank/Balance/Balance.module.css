@@ -1,0 +1,14 @@
+.balance {
+    width: 80%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-weight: bold;
+  }
+  .deposite {
+    color: green;
+  }
+  .withdraw {
+    color: red;
+  }
