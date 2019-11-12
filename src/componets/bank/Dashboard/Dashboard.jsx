@@ -4,21 +4,17 @@ import Balance from "../Balance/Balance";
 import TransactionHistory from "../TransactionHistory/TransactionHistory";
 import shortid from "short-id";
 import style from "../style.module.css";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 class Dashboard extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      history: [],
-      balance: 0,
-      deposit: 0,
-      withdraw: 0,
-      valueInput: ""
-    };
-  }
+  state = {
+    history: [],
+    balance: 0
+  };
+  deposit = 0;
+  withdraw = 0;
+
   noMoney = () =>
     toast("На счету недостаточно средств для проведения операции!", {
       autoClose: 5000
@@ -26,63 +22,57 @@ class Dashboard extends React.Component {
   unCorrectInput = () =>
     toast("Введите сумму для проведения операции!", { autoClose: 5000 });
 
-  handleInput = e => {
-    e.preventDefault();
-      this.setState({ valueInput: +e.target.value });
-  };
-
-  createNewOperation = typyOperation => {
+  createNewOperation = (typeOperation,valueInput) => {
     const dateOperation = new Date().toLocaleString();
     return {
       id: shortid.generate(),
-      type: typyOperation,
-      amount: this.state.valueInput,
+      type: typeOperation,
+      amount: valueInput,
       date: dateOperation
     };
   };
-
-  handleCkickDeposit = () => {
-    if (this.state.valueInput > 0) {
-      const operation = this.createNewOperation("Deposit");
+  handleCkickDeposit = (valueInput) => {
+    if (valueInput > 0) {
+      const operation = this.createNewOperation("Deposit", valueInput);
       this.setState(prevState => {
         return {
           history: [operation, ...prevState.history],
-          deposit: (prevState.deposit += Number(operation.amount)),
-          balance: (prevState.balance += Number(operation.amount)),
-          valueInput: ""
+          balance: (prevState.balance += Number(operation.amount))
         };
       });
+      this.deposit += Number(operation.amount);
     } else this.unCorrectInput();
   };
 
-  handleCkickWithdraw = () => {
-    if (this.state.valueInput !== "" && this.state.valueInput > 0) {
-      const operation = this.createNewOperation("Withdraw");
+  handleCkickWithdraw = (valueInput) => {
+    if (valueInput && valueInput > 0) {
+      const operation = this.createNewOperation("Withdraw", valueInput);
       this.setState(prevState => {
-        if (this.state.balance >= this.state.valueInput) {
+        if (this.state.balance >= valueInput) {
           return {
             balance: (prevState.balance -= Number(operation.amount)),
-            valueInput: "",
-            history: [operation, ...prevState.history],
-            withdraw: (prevState.withdraw += Number(operation.amount))
+            history: [operation, ...prevState.history]
           };
         } else this.noMoney();
       });
+      this.withdraw += Number(operation.amount);
     } else this.unCorrectInput();
   };
 
   render() {
-    const { history, balance, deposit, withdraw, valueInput } = this.state;
+    const { history, balance } = this.state;
     return (
       <div className={style.dashboard}>
         <Controls
-          onInputChange={this.handleInput}
           deposit={this.handleCkickDeposit}
           withdraw={this.handleCkickWithdraw}
-          resetForm={valueInput}
         />
         <ToastContainer />
-        <Balance balance={balance} deposit={deposit} withdraw={withdraw} />
+        <Balance
+          balance={balance}
+          deposit={this.deposit}
+          withdraw={this.withdraw}
+        />
         <TransactionHistory history={history} />
       </div>
     );
