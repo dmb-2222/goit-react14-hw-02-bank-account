@@ -40,7 +40,9 @@ class Dashboard extends React.Component {
           balance: (prevState.balance += Number(operation.amount))
         };
       });
-    } else this.unCorrectInput();
+    } else {
+      this.unCorrectInput();
+    }
   };
 
   handleCkickWithdraw = valueInput => {
@@ -52,9 +54,13 @@ class Dashboard extends React.Component {
             balance: (prevState.balance -= Number(operation.amount)),
             history: [operation, ...prevState.history]
           };
-        } else this.noMoney();
+        } else {
+          this.noMoney();
+        }
       });
-    } else this.unCorrectInput();
+    } else {
+      this.unCorrectInput();
+    }
   };
 
   render() {
