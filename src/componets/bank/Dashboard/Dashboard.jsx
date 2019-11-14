@@ -12,7 +12,7 @@ class Dashboard extends React.Component {
     history: [],
     balance: 0
   };
-  deposit = 0;
+  // deposit = 0;
   withdraw = 0;
 
   noMoney = () =>
@@ -21,8 +21,7 @@ class Dashboard extends React.Component {
     });
   unCorrectInput = () =>
     toast("Введите сумму для проведения операции!", { autoClose: 5000 });
-
-  createNewOperation = (typeOperation,valueInput) => {
+  createNewOperation = (typeOperation, valueInput) => {
     const dateOperation = new Date().toLocaleString();
     return {
       id: shortid.generate(),
@@ -31,7 +30,8 @@ class Dashboard extends React.Component {
       date: dateOperation
     };
   };
-  handleCkickDeposit = (valueInput) => {
+
+  handleCkickDeposit = valueInput => {
     if (valueInput > 0) {
       const operation = this.createNewOperation("Deposit", valueInput);
       this.setState(prevState => {
@@ -40,11 +40,10 @@ class Dashboard extends React.Component {
           balance: (prevState.balance += Number(operation.amount))
         };
       });
-      this.deposit += Number(operation.amount);
     } else this.unCorrectInput();
   };
 
-  handleCkickWithdraw = (valueInput) => {
+  handleCkickWithdraw = valueInput => {
     if (valueInput && valueInput > 0) {
       const operation = this.createNewOperation("Withdraw", valueInput);
       this.setState(prevState => {
@@ -55,7 +54,6 @@ class Dashboard extends React.Component {
           };
         } else this.noMoney();
       });
-      this.withdraw += Number(operation.amount);
     } else this.unCorrectInput();
   };
 
@@ -68,11 +66,7 @@ class Dashboard extends React.Component {
           withdraw={this.handleCkickWithdraw}
         />
         <ToastContainer />
-        <Balance
-          balance={balance}
-          deposit={this.deposit}
-          withdraw={this.withdraw}
-        />
+        <Balance balance={balance} history={history} />
         <TransactionHistory history={history} />
       </div>
     );

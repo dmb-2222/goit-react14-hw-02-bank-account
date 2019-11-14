@@ -1,13 +1,6 @@
 import React from "react";
-import Dashboard from './componets/bank/Dashboard/Dashboard'
+import Dashboard from "./componets/bank/Dashboard/Dashboard";
 
-
-function App() {
-  return (
-    <div>
-      <Dashboard/>
-    </div>
-  );
-}
+const App = () => <Dashboard />;
 
 export default App;
