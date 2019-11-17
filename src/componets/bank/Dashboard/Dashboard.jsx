@@ -12,8 +12,6 @@ class Dashboard extends React.Component {
     history: [],
     balance: 0
   };
-  // deposit = 0;
-  withdraw = 0;
 
   noMoney = () =>
     toast("На счету недостаточно средств для проведения операции!", {
@@ -46,7 +44,7 @@ class Dashboard extends React.Component {
   };
 
   handleCkickWithdraw = valueInput => {
-    if (valueInput && valueInput > 0) {
+    if (valueInput > 0) {
       const operation = this.createNewOperation("Withdraw", valueInput);
       this.setState(prevState => {
         if (this.state.balance >= valueInput) {

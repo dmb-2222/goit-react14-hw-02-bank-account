@@ -8,12 +8,8 @@ class Controls extends React.Component {
   handleInput = e => {
     this.setState({ value: +e.target.value });
   };
-  hadleDeposit = () => {
-    this.props.deposit(this.state.value);
-    this.resetForm()
-  };
-  handleWithdraw = () => {
-    this.props.withdraw(this.state.value);
+  hadleDeposit = ({ target: { name } }) => {
+    this.props[name](this.state.value);
     this.resetForm()
   };
   resetForm = () => {
@@ -42,7 +38,7 @@ class Controls extends React.Component {
             type="submit"
             className={style.button}
             name="withdraw"
-            onClick={this.handleWithdraw}
+            onClick={this.hadleDeposit}
           >
             Withdraw
           </button>
